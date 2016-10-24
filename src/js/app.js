@@ -89,6 +89,17 @@
             "discount": 12
         }
       ];
+
+      this.calculateTax = function(price, discount) {
+        return '$' + (price*1.0575-discount).toFixed(2);
+      };
+
+      this.onSale = function(discount) {
+        if (discount>0) {
+          return true;
+        }
+      };
+
     });
 
 })(jQuery);
