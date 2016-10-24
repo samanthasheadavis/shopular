@@ -4,10 +4,12 @@
 <head>
     <meta charset='UTF-8'>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link rel="stylesheet" href="lib/styles/main.min.css" <title>Shopular</title>
+    <link rel="stylesheet" href="lib/styles/main.min.css"
 </head>
 <header>
-<body ng-controller='ProductsController as products'>
+  <h1>Shopular</h1>
+</header>
+<body ng-controller='ProductsController as products'
     <div class='productsContainer'>
         <table>
           <tr>
@@ -15,13 +17,14 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Color</th>
+            <th>Sale</th>
           </tr>
             <tr ng-repeat="item in products.allProducts">
                 <td>{{item.name}}</td>
                 <td>{{products.calculateTax(item.price, item.discount)}}</td>
                 <td>{{item.quantity}}</td>
                 <td>{{item.color}}</td>
-                <td ng-show='products.onSale(item.discount)'><img src='http://www.freeiconspng.com/uploads/sales-icon-9.png'></td>
+                <td><img ng-show='products.onSale(item.discount)' src='http://www.freeiconspng.com/uploads/sales-icon-9.png'></td>
 
             </tr>
         </table>
