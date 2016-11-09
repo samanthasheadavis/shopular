@@ -9,23 +9,61 @@
 <header>
   <h1>Shopular</h1>
 </header>
-<body ng-controller='ProductsController as products'
-    <div class='productsContainer'>
+<body ng-controller='ProductsController as products'>
+<div class="productsContainer">
+
+  <form name="inputForm" class="add" novalidate ng-submit="inputForm.$valid && products.addItems()"  >
+    <label for="name">Name</label>
+    <input
+    ng-model="products.newItem.name"
+    ng-class="{'invalid': inputForm.name.$error.minlength}"
+    ng-minlength = "products.minLength"
+    required = "true"
+    type="text"
+    name="name">
+    <label for="price">Price</label>
+    <input
+    ng-model="products.newItem.price"
+    type="number"
+    name="price">
+    <label for="quantity">Quantity</label>
+    <input
+    ng-model="products.newItem.quantity"
+    type="number"
+    name="quantity">
+    <label for="color">Color</label>
+    <input
+    ng-model="products.newItem.color"
+    ng-class="{'invalid': inputForm.color.$error.minlength}"
+    ng-minlength = "products.minLength"
+    type="text"
+    name="color">
+    <label for="discount">Discount</label>
+    <input
+    ng-model="products.newItem.discount"
+    type="number"
+    name="discount">
+    <button
+    type='submit'
+    class="submit"
+    >Send</button>
+  </form>
+</div>
+
         <table>
           <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Color</th>
+            <th ng-click="orderByField='name'; reverseSort = !reverseSort">Name</th>
+            <th ng-click="orderByField='price'; reverseSort = !reverseSort">Price</th>
+            <th ng-click="orderByField='quantity'; reverseSort = !reverseSort">Quantity</th>
+            <th ng-click="orderByField='color'; reverseSort = !reverseSort">Color</th>
             <th>Sale</th>
           </tr>
-            <tr ng-repeat="item in products.allProducts">
+            <tr ng-repeat="item in products.allProducts|orderBy:orderByField:reverseSort">
                 <td>{{item.name}}</td>
-                <td>{{products.calculateTax(item.price, item.discount)}}</td>
+                <td>{{products.calculateTax(item.price, item.discount) | currency}}</td>
                 <td>{{item.quantity}}</td>
                 <td>{{item.color}}</td>
                 <td><img ng-show='products.onSale(item.discount)' src='http://www.freeiconspng.com/uploads/sales-icon-9.png'></td>
-
             </tr>
         </table>
     </div>
@@ -33,7 +71,6 @@
     <script src="src/js/vendor/jquery-3.1.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src='src/js/app.js'></script>
-
 </body>
 
 </html>
